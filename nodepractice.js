@@ -1,13 +1,15 @@
 const events = require('events');
+const util  = require('util');
 
 
+// PRACTICE USING THE setTimeout METHOD
 
 setTimeout(function(){
   console.log("hello")
 },2000);
 
 
-// TIME THAT GOES FROM 10 THEN GOERS BACK DOWN TO 0
+// TIME THAT GOES FROM 10 THEN GOERS BACK DOWN TO 0 USING setInterval
 time = 0
 var timer = setInterval(function(){
 
@@ -26,9 +28,11 @@ var timer = setInterval(function(){
 },1000)
 
 
-
+// Used to check file names and current directory locations
 console.log("Currently at: " + __dirname)
 console.log("Currently on: " + __filename)
+
+// Using object template strongs (new to ES6)  and exporting modules
 
 var triangle = function(b,h){
   area = (b*h)/2
@@ -63,11 +67,26 @@ eventEmitter.on('shapeArea', function(b,h,w){
 
 eventEmitter.emit("shapeArea",10,40,1);
 
+// PRACTICE WITH THE "util" module
 
-var emmiter2  = new events.EventEmitter();
+var  Person = function(name,eyecolor,height){
+    this.name = name;
+    this.eyecolor = eyecolor;
+    this.height = height;
+}
+// using inherits to inerit the event emmiter to be used to emit events on the object
+util.inherits(Person,events.EventEmitter);
 
-emmiter2.on("hello", function(){
-    console.log("Hello")
+var bradley = new Person("bradley","brown","5''10");
+var reece = new Person("reece","greed","5''11");
+var chloe = new Person("chloe","blue","6''10");
+// created an array to iterate throgh the objects using forEach
+var people = [bradley,reece,chloe]
+
+people.forEach(function(who){
+    who.on("Introduce",function(){
+        console.log(`Hello, my name is ${who.name} and I have ${who.eyecolor} eyes. I am also ${who.height}`);
+    });
 });
 
-emmiter2.emit("hello");
+bradley.emit("Introduce");
