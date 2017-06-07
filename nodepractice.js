@@ -1,5 +1,6 @@
 const events = require('events');
 const util  = require('util');
+const fs = require('fs');
 
 
 // PRACTICE USING THE setTimeout METHOD
@@ -90,3 +91,11 @@ people.forEach(function(who){
 });
 
 bradley.emit("Introduce");
+
+/// PRACTICE READING AND WRITING finalResult
+// asynchronous method
+fs.readFile("testReading.txt","utf8",function(err,data){
+    fs.writeFile("testWriting.txt",data)
+});
+//synchronous method
+console.log(fs.readFileSync("testReading.txt",'utf8'));
